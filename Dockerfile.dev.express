@@ -1,0 +1,8 @@
+FROM docker.io/node:18 AS build
+WORKDIR /app
+
+COPY . .
+
+RUN npm clean-install
+
+CMD [ "npx", "nx", "serve","express" ]

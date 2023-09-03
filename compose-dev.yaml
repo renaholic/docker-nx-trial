@@ -1,0 +1,20 @@
+services:
+  express:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev.express
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 3000:3000
+  app:
+    entrypoint:
+    - sleep
+    - infinity
+    image: docker/dev-environments-javascript:stable-1
+    init: true
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+

@@ -72,10 +72,6 @@
           "codeCoverage": true
         }
       }
-    },
-    "docker-build": {
-      "dependsOn": ["build"],
-      "command": "docker build -f apps/express/Dockerfile . -t express"
     }
   },
   "tags": []

@@ -4,21 +4,32 @@
 # Tip: Modify "docker-build" options in project.json to change docker build args.
 #
 # Run the container with `docker run -p 3000:3000 -t express`.
-FROM docker.io/node:lts-alpine
+
+# Build stage
+FROM docker.io/node:18 AS build
+WORKDIR /app
+
+COPY . .
+
+RUN npm clean-install && npx nx build express
+
+# make artifacts
+FROM docker.io/node:18
 
 ENV HOST=0.0.0.0
 ENV PORT=3000
 
 WORKDIR /app
 
-RUN addgroup --system express && \
-          adduser --system -G express express
+RUN adduser --system --group express
 
-COPY dist/apps/express express
+COPY --from=build /app/dist/apps/express express
 RUN chown -R express:express .
 
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
 RUN npm --prefix express --omit=dev -f install
+
+EXPOSE 3000
 
 CMD [ "node", "express" ]
