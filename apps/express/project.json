@@ -22,7 +22,8 @@
           "outExtension": {
             ".js": ".js"
           }
-        }
+        },
+        "webpackConfig": ".webpack/express-dev.config.js"
       },
       "configurations": {
         "development": {},
@@ -45,7 +46,7 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "express:build:development"
+          "buildTarget": "express:build:development",
         },
         "production": {
           "buildTarget": "express:build:production"
